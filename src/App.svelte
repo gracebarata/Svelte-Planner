@@ -1,14 +1,9 @@
 <script>
+// name variable is defined in main.js
 	export let name;
 
 
-
-	let quickTask = 1;
-	let todayTask = 1;
-
-
-
-
+// TODO LIST JS LOGIC
 	import { quintOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
 
@@ -62,22 +57,30 @@
 		todos = todos.concat(todo);
 	}
 
+
+// TARGET AND BACKLOG 
+	let morningTask = 1;
+	let afternoonTask = 1;
+
 </script>
 
 
-<!--COMPONENTS-->
+<!--HTML MARKUP-->
 
-<!--CREATE INPUT FIELD AND CAPTURE ITS VALUE IN {name} VARIABLE-->
+<!--INPUT NAME FIELD-->
+<div class="input">
+<input class="nameInput" placeholder="enter your name here" bind:value={name}>
+</div>
 
-<input class="name" placeholder="enter your name here" bind:value={name}>
-
-
+<!--WELCOME HEADER-->
 <main>
 	<h1>Welcome {name}!</h1>
 	<p>I'm Svelte-List, your one stop productivity assistant.</p> 
-	<br/> <p>List your task and set targets to help you achieve more each day</p>
+	<br/> <p>List your tasks and set targets to help you achieve more each day</p>
 </main>
 
+
+<!--TODO LIST-->
 <h1>DAILY PLANNER</h1>
 
 <div class='board'>
@@ -116,27 +119,24 @@
 	</div>
 </div>
 
-
-
-
-
-
+<!--TARGET SETTING-->
+<div class="targetBlock">
+<h2>Goal Setting</h2>
 <label>
 	<p>Number of tasks I aim to do this morning</p>
-	<input type=number bind:value={quickTask} min=0 max=10>
-	<input type=range bind:value={quickTask} min=0 max=10>
-
+	<input type=number bind:value={morningTask} min=0 max=10>
+	<input type=range bind:value={morningTask} min=0 max=10>
 </label>
 
 <label>
 <p>Number of tasks I aim to do this afternoon</p>
-	<input type=number bind:value={todayTask} min=0 max=10>
-	<input type=range bind:value={todayTask} min=0 max=10>
+	<input type=number bind:value={afternoonTask} min=0 max=10>
+	<input type=range bind:value={afternoonTask} min=0 max=10>
 </label>
 
-<h2 class="main"><span class="green">Target:</span> I will have completed <span class="green">{quickTask + todayTask}</span> tasks by the end of today</h2>
-<h2><span class="red">Backlog:</span> I will have <span class="red">{(todos.length) - (quickTask+todayTask) }</span> tasks to do tomorrow</h2>
-
+<h2 class="main"><span class="green">Target:</span> To complete <span class="green">{morningTask + afternoonTask}</span> tasks by the end of today</h2>
+<h2><span class="red">Backlog:</span> I will have <span class="red">{(todos.length) - (morningTask + afternoonTask)}</span> tasks left to do tomorrow</h2>
+</div>
 
 
 
@@ -154,13 +154,44 @@
 		text-align: center;
 		color: #ff3e00;
 		text-transform: uppercase;
-		font-size: 4em;
+		font-size: 3em;
 		font-weight: 100;
 	}
 
-	.name {
+	.input{
+  width: 100vw;
+  position: relative;
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  margin-bottom: 0;
+  padding-bottom: 0;
+
+	}
+
+	.nameInput {
 		color: green;
+		display: flex;
+		flex-align: center;
+
+  border: 1px solid pink
 		}
+
+	p {
+		margin: 0;
+		padding: 0
+	}	
+
+.targetBlock{
+	margin-left: 1em;
+	margin-right: 1em;
+	margin-bottom: 2em
+}
+
+.targetBlock > h2{
+	margin: 1em;
+}
+
 
 	@media (min-width: 640px) {
 		main {
@@ -193,7 +224,7 @@
 		position: relative;
 		line-height: 1.2;
 		padding: 0.5em 2.5em 0.5em 2em;
-		margin: 0 0 0.5em 0;
+		margin: 0.5em 0 0.5em 0;
 		border-radius: 2px;
 		user-select: none;
 		border: 1px solid hsl(240, 8%, 70%);
