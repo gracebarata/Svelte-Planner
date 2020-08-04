@@ -69,15 +69,16 @@
 
 <!--CREATE INPUT FIELD AND CAPTURE ITS VALUE IN {name} VARIABLE-->
 
-<input placeholder="enter your name here" bind:value={name}>
+<input class="name" placeholder="enter your name here" bind:value={name}>
 
 
 <main>
 	<h1>Welcome {name}!</h1>
-	<p>I'm Svelte-List, your one stop productivity assistant.</p> <br/> <p>List your chores and set targets to help you achieve more each day</p>
+	<p>I'm Svelte-List, your one stop productivity assistant.</p> 
+	<br/> <p>List your task and set targets to help you achieve more each day</p>
 </main>
 
-<h1>TODOS</h1>
+<h1>DAILY PLANNER</h1>
 
 <div class='board'>
 	<input
@@ -133,8 +134,8 @@
 	<input type=range bind:value={todayTask} min=0 max=10>
 </label>
 
-<p>I will have completed {quickTask + todayTask} tasks by the end of today</p>
-<p>I will have {(todos.length) - (quickTask+todayTask) } tasks to do tomorrow</p>
+<h2 class="main"><span class="green">Target:</span> I will have completed <span class="green">{quickTask + todayTask}</span> tasks by the end of today</h2>
+<h2><span class="red">Backlog:</span> I will have <span class="red">{(todos.length) - (quickTask+todayTask) }</span> tasks to do tomorrow</h2>
 
 
 
@@ -157,16 +158,14 @@
 		font-weight: 100;
 	}
 
+	.name {
+		color: green;
+		}
+
 	@media (min-width: 640px) {
 		main {
 			max-width: none;
 		}
-	}
-
-
-
-		.done {
-		opacity: 0.4;
 	}
 
 
@@ -212,6 +211,7 @@
 	.done {
 		border: 1px solid hsl(240, 8%, 90%);
 		background-color:hsl(240, 8%, 98%);
+		opacity: 0.4;
 	}
 
 	button {
@@ -231,6 +231,14 @@
 
 	label:hover button {
 		opacity: 1;
+	}
+
+	.red{
+		color: red;
+	}
+
+	.green{
+		color: green
 	}
 
 		
